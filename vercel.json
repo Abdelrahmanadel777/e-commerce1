@@ -2,26 +2,14 @@
     "version": 2,
     "builds": [
         {
-            "src": "server.js",
+            "src": "index.js",
             "use": "@vercel/node"
-        },
-        {
-            "src": "public/**",
-            "use": "@vercel/static"
         }
     ],
     "routes": [
         {
             "src": "/(.*)",
-            "dest": "server.js"
-        },
-        {
-            "src": "/?nft=*",
-            "dest": "public/sketch.html"
-        },
-        {
-            "src": "/(.+)",
-            "dest": "public/$1"
+            "dest": "/"
         }
     ]
 }
