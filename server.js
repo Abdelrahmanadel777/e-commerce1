@@ -2,8 +2,8 @@ import express from 'express'
 import { dbConnection } from './database/dbconnection.js'
 import { bootstrap } from './src/modules/bootstrap.js'
 import { globalError } from './src/middleware/globalError.js'
-import 'dotenv/config'
 import cors from 'cors'
+import 'dotenv/config'
 
 
 const app = express()

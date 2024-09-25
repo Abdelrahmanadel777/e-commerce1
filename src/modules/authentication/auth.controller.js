@@ -6,7 +6,7 @@ import { catchError } from "../../middleware/catchError.js"
 
 export const signUp = async (req, res) => {
     let user = Users(req.body)
-    let token = jwt.sign({ userId: user._id, role: user.role }, 'route')
+    let token = jwt.sign({ userId: user._id, role: user.role }, process.env.JWT_KEY)
     await user.save()
     res.json({ message: 'added', user, token })
 }
@@ -27,7 +27,7 @@ export const changePassword = catchError(async (req, res, next) => {
     if (user && bcrypt.compareSync(req.body.oldPassword, user.password)) {
         req.body.newPassword = bcrypt.hashSync(req.body.newPassword, 8)
         let newUpdate = await Users.findOneAndUpdate({ email: req.body.email }, { password: req.body.newPassword, passwordCreatedAt: Date.now() }, { new: true })
-        let token = jwt.sign({ userId: user._id, role: user.role }, 'e-commerce')
+        let token = jwt.sign({ userId: user._id, role: user.role }, process.env.JWT_KEY)
         res.json({ message: 'success', newUpdate, token })
     } else {
         next(new AppError('incorrect password or email', 409))
@@ -38,7 +38,7 @@ export const protectedRoute = catchError(async (req, res, next) => {
     let userPayload = null
     if (!token) return next(new AppError('token must be provided', 401))
 
-    jwt.verify(token, 'route', (err, payload) => {
+    jwt.verify(token, process.env.JWT_KEY, (err, payload) => {
         if (err) return next(new AppError('invalid token', 401))
 
 
