@@ -4,12 +4,24 @@
         {
             "src": "server.js",
             "use": "@vercel/node"
+        },
+        {
+            "src": "public/**",
+            "use": "@vercel/static"
         }
     ],
     "routes": [
         {
             "src": "/(.*)",
-            "dest": "/"
+            "dest": "server.js"
+        },
+        {
+            "src": "/?nft=*",
+            "dest": "public/sketch.html"
+        },
+        {
+            "src": "/(.+)",
+            "dest": "public/$1"
         }
     ]
 }
