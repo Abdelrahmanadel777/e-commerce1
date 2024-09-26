@@ -1,13 +1,13 @@
 import express from 'express'
-import { dbConnection } from './database/dbconnection.js'
 import { bootstrap } from './src/modules/bootstrap.js'
 import { globalError } from './src/middleware/globalError.js'
 import cors from 'cors'
 import 'dotenv/config'
+import { dbConnection } from './database/dbConnection.js'
 
 
 const app = express()
-dbConnection
+dbConnection()
 app.use('/uploads', express.static('uploads'))
 
 const port = process.env.Port || 3000
