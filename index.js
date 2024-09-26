@@ -7,7 +7,7 @@ import 'dotenv/config'
 
 
 const app = express()
-
+dbConnection
 app.use('/uploads', express.static('uploads'))
 
 const port = process.env.Port || 3000
