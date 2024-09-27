@@ -14,7 +14,7 @@ export const signIn = async (req, res, next) => {
     let user = await Users.findOne({ email: req.body.email })
     if (user && bcrypt.compareSync(req.body.password, user.password)) {
 
-        let token = jwt.sign({ userId: user._id, role: user.role }, 'route')
+        let token = jwt.sign({ userId: user._id, role: user.role }, process.env.JWT_KEY)
 
         res.json({ message: 'success', user, token })
     } else {
@@ -40,6 +40,8 @@ export const protectedRoute = catchError(async (req, res, next) => {
 
     jwt.verify(token, process.env.JWT_KEY, (err, payload) => {
         if (err) return next(new AppError('invalid token', 401))
+
+
 
 
         userPayload = payload

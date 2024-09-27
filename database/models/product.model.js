@@ -76,6 +76,10 @@ productSchema.pre('findOne', function () {
 
 productSchema.post('init', (doc) => {
     if (doc.imgCover) doc.imgCover = process.env.BASE_URL + "products/" + doc.imgCover
+
+
     if (doc.images) doc.images = doc.images.map(img => process.env.BASE_URL + "products/" + img)
+
+
 })
 export const Products = model('Products', productSchema)
